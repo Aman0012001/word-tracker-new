@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Create Plan API</title>
+</head>
+
+<body>
+    <h1>Test Create Plan API</h1>
+    <button onclick="testAPI()">Test Create Plan</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testAPI() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing...';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/create_plan.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: 1,
+                        name: 'Test Plan from HTML',
+                        goal_amount: 50000,
+                        start_date: '2025-12-10',
+                        end_date: '2025-12-31',
+                        strategy: 'steady',
+                        content_type: 'Novel',
+                        activity_type: 'Writing',
+                        intensity: 'average'
+                    })
+                });
+
+                const data = await response.json();
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultEl.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+ALTER TABLE plans ADD COLUMN subtitle VARCHAR(255) DEFAULT '';
+ALTER TABLE plans ADD COLUMN description TEXT;
+ALTER TABLE plans ADD COLUMN is_private TINYINT(1) DEFAULT 0;
+ALTER TABLE plans ADD COLUMN target_unit VARCHAR(50) DEFAULT 'words';
+ALTER TABLE plans ADD COLUMN target_type VARCHAR(50) DEFAULT 'overall';
+ALTER TABLE plans ADD COLUMN strategy_intensity VARCHAR(50) DEFAULT 'average';
+ALTER TABLE plans ADD COLUMN weekend_rule VARCHAR(50) DEFAULT 'none';
+ALTER TABLE plans ADD COLUMN custom_rules TEXT;
+ALTER TABLE plans ADD COLUMN display_settings TEXT;
+ALTER TABLE plans ADD COLUMN progress_settings TEXT;

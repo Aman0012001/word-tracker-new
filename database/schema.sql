@@ -1,0 +1,70 @@
+-- Word Tracker Database Schema
+-- Database: word_tracker
+
+-- Create database if not exists
+CREATE DATABASE IF NOT EXISTS word_tracker;
+USE word_tracker;
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Plans table (updated schema)
+CREATE TABLE IF NOT EXISTS plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    content_type VARCHAR(100) NULL,
+    activity_type VARCHAR(100) NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    goal_amount INT NOT NULL DEFAULT 0,
+    strategy VARCHAR(50) DEFAULT 'steady',
+    intensity VARCHAR(50) DEFAULT 'average',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Plan Days table (daily schedule)
+CREATE TABLE IF NOT EXISTS plan_days (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plan_id INT NOT NULL,
+    date DATE NOT NULL,
+    target INT NOT NULL DEFAULT 0,
+    logged INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_plan_date (plan_id, date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Checklists table
+CREATE TABLE IF NOT EXISTS checklists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plan_id INT NULL,
+    user_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Checklist Items table
+CREATE TABLE IF NOT EXISTS checklist_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    checklist_id INT NOT NULL,
+    item_text TEXT NOT NULL,
+    is_done BOOLEAN DEFAULT FALSE,
+    sort_order INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (checklist_id) REFERENCES checklists(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

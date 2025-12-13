@@ -1,0 +1,11 @@
+node_modules/
+dist/
+vendor/
+.env
+.DS_Store
+.idea/
+.vscode/
+coverage/
+build/
+.angular/
+word-tracker-main/
