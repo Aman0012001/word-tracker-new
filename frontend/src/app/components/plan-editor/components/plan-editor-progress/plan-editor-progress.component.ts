@@ -40,6 +40,7 @@ export class PlanEditorProgressComponent implements OnChanges {
                 },
                 error: (err) => {
                     console.error(err);
+                    this.error = err.status === 0 ? 'Network error' : 'Failed to load progress';
                     this.loading = false;
                 }
             });
@@ -56,11 +57,10 @@ export class PlanEditorProgressComponent implements OnChanges {
             next: (res: any) => {
                 this.successMessage = `Saved for ${day.date}`;
                 setTimeout(() => this.successMessage = '', 3000);
-                // define specific logic if needed, e.g. reload stats
             },
             error: (err) => {
                 console.error(err);
-                this.error = 'Failed to save';
+                this.error = err.status === 0 ? 'Network error' : 'Failed to save';
                 setTimeout(() => this.error = '', 3000);
             }
         });

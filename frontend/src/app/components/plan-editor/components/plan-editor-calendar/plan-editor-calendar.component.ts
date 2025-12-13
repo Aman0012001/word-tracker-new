@@ -67,7 +67,7 @@ export class PlanEditorCalendarComponent implements OnChanges {
                 next: (res: any) => {
                     if (res.success) {
                         this.schedule = res.data;
-                        this.generateCalendar(); // Re-render with data
+                        this.generateCalendar();
                     }
                     this.loading = false;
                 },

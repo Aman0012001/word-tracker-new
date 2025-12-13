@@ -191,7 +191,9 @@ export class CreatePlanComponent implements OnInit {
         error: (err) => {
           console.error('Error creating plan:', err);
           this.isSubmitting = false;
-          this.errorMessage = 'Failed to create plan. Please make sure the backend server is running.';
+          this.errorMessage = err.status === 0
+            ? 'Network error. Please check your connection.'
+            : 'Failed to create plan. Please try again.';
         }
       });
   }

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-plan-detail',
@@ -38,7 +39,7 @@ export class PlanDetailComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load plan', err);
-          alert('Error loading plan details');
+          alert(err.status === 0 ? 'Network error. Please check your connection.' : 'Error loading plan details');
           this.loading = false;
         }
       });
@@ -48,7 +49,10 @@ export class PlanDetailComponent implements OnInit {
     const val = parseInt(newValue, 10);
     if (isNaN(val)) return;
 
+<<<<<<< HEAD
     // Call API to update day
+=======
+>>>>>>> b3c58f5f6a070a4d83a48ac437b281081e486801
     this.http.post(`${environment.apiUrl}/add_progress.php`, {
       plan_id: this.plan.id,
       date: day.date,
@@ -56,11 +60,13 @@ export class PlanDetailComponent implements OnInit {
     }).subscribe({
       next: (res: any) => {
         if (res.success) {
-          // Reload to refresh stats/progress
           this.loadPlan(this.plan.id);
         }
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        console.error(e);
+        alert(e.status === 0 ? 'Network error' : 'Failed to update progress');
+      }
     });
   }
 }

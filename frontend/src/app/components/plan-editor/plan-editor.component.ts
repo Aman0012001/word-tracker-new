@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { PlanEditorCalendarComponent } from './components/plan-editor-calendar/plan-editor-calendar.component';
+import { environment } from '../../../environments/environment';
 
 import { StatsComponent } from '../stats/stats.component';
 import { PlanEditorProgressComponent } from './components/plan-editor-progress/plan-editor-progress.component';
@@ -83,7 +84,7 @@ export class PlanEditorComponent implements OnInit {
                     if (plan) {
                         this.planData['id'] = plan.id;
                         this.planTitle = plan.name;
-                        this.planData.title = plan.name; // Keep in sync
+                        this.planData.title = plan.name;
                         this.planData.content = plan.content_type;
                         this.planData.activity = plan.activity_type;
                         this.planData.startDate = plan.start_date;
@@ -101,7 +102,10 @@ export class PlanEditorComponent implements OnInit {
                         }
                     }
                 },
-                error: (err) => alert('Failed to load plan')
+                error: (err) => {
+                    console.error('Failed to load plan:', err);
+                    alert(err.status === 0 ? 'Network error. Please check your connection.' : 'Failed to load plan');
+                }
             });
     }
 
@@ -142,7 +146,10 @@ export class PlanEditorComponent implements OnInit {
                         alert(res.message || 'Plan updated successfully!');
                         this.router.navigate(['/plans']);
                     },
-                    error: (err) => alert('Error updating plan.')
+                    error: (err) => {
+                        console.error('Error updating plan:', err);
+                        alert(err.status === 0 ? 'Network error. Please check your connection.' : 'Error updating plan.');
+                    }
                 });
         } else {
             // Create
@@ -158,7 +165,7 @@ export class PlanEditorComponent implements OnInit {
                     },
                     error: (err) => {
                         console.error('Plan save error:', err);
-                        alert(err.error?.message || 'Error saving plan. Please check the console for details.');
+                        alert(err.status === 0 ? 'Network error. Please check your connection.' : (err.error?.message || 'Error saving plan.'));
                     }
                 });
         }

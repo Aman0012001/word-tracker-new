@@ -91,7 +91,7 @@ export class CreateChecklistComponent implements OnInit {
                 },
                 error: (err) => {
                     console.error('Checklist save error:', err);
-                    alert(err.error?.message || 'Error creating checklist. Please try again.');
+                    alert(err.status === 0 ? 'Network error. Please check your connection.' : (err.error?.message || 'Error creating checklist. Please try again.'));
                 }
             });
     }

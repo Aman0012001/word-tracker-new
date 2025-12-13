@@ -31,7 +31,10 @@ export class CommunityComponent implements OnInit {
   }
 
   fetchCommunityPlans() {
+<<<<<<< HEAD
     // Using environment.apiUrl instead of hardcoded localhost
+=======
+>>>>>>> b3c58f5f6a070a4d83a48ac437b281081e486801
     const url = `${environment.apiUrl}/get_community_plans.php`;
 
     this.http.get<any>(url).subscribe({
@@ -45,6 +48,7 @@ export class CommunityComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching community plans:', error);
+        alert(error.status === 0 ? 'Network error. Please check your connection.' : 'Failed to load community plans');
         this.plans = [];
         this.applyFilters();
       }

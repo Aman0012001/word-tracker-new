@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-stats',
@@ -55,7 +56,11 @@ export class StatsComponent implements OnInit, OnChanges {
     if (this.planId) {
       url = `${environment.apiUrl}/get_stats.php?plan_id=${this.planId}`;
     } else {
+<<<<<<< HEAD
       const userId = localStorage.getItem('user_id') || '1'; // Default to 1 or handle login
+=======
+      const userId = localStorage.getItem('user_id') || '1';
+>>>>>>> b3c58f5f6a070a4d83a48ac437b281081e486801
       url = `${environment.apiUrl}/get_global_stats.php?user_id=${userId}`;
     }
 
@@ -76,7 +81,7 @@ export class StatsComponent implements OnInit, OnChanges {
         },
         error: (err) => {
           console.error('Stats load error:', err);
-          this.error = 'Error loading stats';
+          this.error = err.status === 0 ? 'Network error. Please check your connection.' : 'Error loading stats. Please try again.';
           this.loading = false;
         }
       });
