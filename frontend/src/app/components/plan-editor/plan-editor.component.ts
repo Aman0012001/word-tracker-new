@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { PlanEditorCalendarComponent } from './components/plan-editor-calendar/plan-editor-calendar.component';
 
 import { StatsComponent } from '../stats/stats.component';
@@ -76,7 +77,7 @@ export class PlanEditorComponent implements OnInit {
     }
 
     loadPlan(id: number) {
-        this.http.get<any>(`http://localhost:8000/api/get_plan.php?id=${id}`)
+        this.http.get<any>(`${environment.apiUrl}/get_plan.php?id=${id}`)
             .subscribe({
                 next: (plan) => {
                     if (plan) {
@@ -135,7 +136,7 @@ export class PlanEditorComponent implements OnInit {
         if (this.planData.id) {
             // Update
             payload.id = this.planData.id;
-            this.http.post('http://localhost:8000/api/update_plan.php', payload)
+            this.http.post(`${environment.apiUrl}/update_plan.php`, payload)
                 .subscribe({
                     next: (res: any) => {
                         alert(res.message || 'Plan updated successfully!');
@@ -145,7 +146,7 @@ export class PlanEditorComponent implements OnInit {
                 });
         } else {
             // Create
-            this.http.post('http://localhost:8000/api/create_plan.php', payload)
+            this.http.post(`${environment.apiUrl}/create_plan.php`, payload)
                 .subscribe({
                     next: (res: any) => {
                         if (res.success) {

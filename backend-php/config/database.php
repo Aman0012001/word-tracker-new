@@ -3,7 +3,7 @@
 
 class Database
 {
-    // Use environment variables for Railway, fallback to localhost for local dev
+    // Database credentials - Railway or XAMPP
     private $host;
     private $db_name;
     private $username;
@@ -13,12 +13,22 @@ class Database
 
     public function __construct()
     {
-        // Database Configuration
-        $this->host = getenv('MYSQLHOST') ?: '127.0.0.1';
-        $this->port = getenv('MYSQLPORT') ?: '3306';
-        $this->username = getenv('MYSQLUSER') ?: 'root';
-        $this->password = getenv('MYSQLPASSWORD') ?: ''; // Empty for XAMPP
-        $this->db_name = getenv('MYSQLDATABASE') ?: 'word_tracker';
+        // Check if running on Railway (environment variable exists)
+        if (getenv('MYSQLHOST')) {
+            // Railway MySQL configuration
+            $this->host = getenv('MYSQLHOST');
+            $this->db_name = getenv('MYSQLDATABASE');
+            $this->username = getenv('MYSQLUSER');
+            $this->password = getenv('MYSQLPASSWORD');
+            $this->port = getenv('MYSQLPORT') ?: '3306';
+        } else {
+            // XAMPP Defaults for local development
+            $this->host = "127.0.0.1";
+            $this->db_name = "word_tracker";
+            $this->username = "root";
+            $this->password = "";
+            $this->port = "3306";
+        }
     }
 
     public function getConnection()
@@ -27,17 +37,23 @@ class Database
 
         try {
             $dsn = "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";charset=utf8mb4";
+
             $this->conn = new PDO($dsn, $this->username, $this->password);
+
+            // Error Handling
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
         } catch (PDOException $exception) {
-            // Log error for debugging
-            error_log("Database connection error: " . $exception->getMessage());
+            // Return JSON error ensuring frontend can parse it
+            header("Content-Type: application/json");
+            http_response_code(500);
             echo json_encode([
                 "success" => false,
-                "message" => "Database connection failed. Please check server configuration."
+                "message" => "Database Connection Error: " . $exception->getMessage()
             ]);
-            exit();
+            exit;
         }
 
         return $this->conn;

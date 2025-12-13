@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
 
@@ -52,10 +53,10 @@ export class StatsComponent implements OnInit, OnChanges {
 
     let url = '';
     if (this.planId) {
-      url = `http://localhost:8000/api/get_stats.php?plan_id=${this.planId}`;
+      url = `${environment.apiUrl}/get_stats.php?plan_id=${this.planId}`;
     } else {
       const userId = localStorage.getItem('user_id') || '1'; // Default to 1 or handle login
-      url = `http://localhost:8000/api/get_global_stats.php?user_id=${userId}`;
+      url = `${environment.apiUrl}/get_global_stats.php?user_id=${userId}`;
     }
 
     this.http.get(url)

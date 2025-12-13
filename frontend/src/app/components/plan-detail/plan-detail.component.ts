@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
 
 @Component({
@@ -28,7 +29,7 @@ export class PlanDetailComponent implements OnInit {
 
   loadPlan(id: string) {
     this.loading = true;
-    this.http.get<any>('http://localhost:8000/api/get_plan_full_details.php?id=' + id)
+    this.http.get<any>(`${environment.apiUrl}/get_plan_full_details.php?id=` + id)
       .subscribe({
         next: (data) => {
           this.plan = data;
@@ -48,7 +49,7 @@ export class PlanDetailComponent implements OnInit {
     if (isNaN(val)) return;
 
     // Call API to update day
-    this.http.post('http://localhost:8000/api/add_progress.php', {
+    this.http.post(`${environment.apiUrl}/add_progress.php`, {
       plan_id: this.plan.id,
       date: day.date,
       count: val

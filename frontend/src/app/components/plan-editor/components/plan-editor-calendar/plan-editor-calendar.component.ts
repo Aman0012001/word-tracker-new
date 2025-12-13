@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-plan-editor-calendar',
@@ -61,7 +62,7 @@ export class PlanEditorCalendarComponent implements OnChanges {
             weekend_rule: this.planData.weekendRule
         };
 
-        this.http.post('http://localhost:8000/api/preview_plan.php', payload)
+        this.http.post(`${environment.apiUrl}/preview_plan.php`, payload)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {

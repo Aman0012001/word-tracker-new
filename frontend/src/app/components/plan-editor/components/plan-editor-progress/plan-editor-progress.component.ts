@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-plan-editor-progress',
@@ -29,7 +30,7 @@ export class PlanEditorProgressComponent implements OnChanges {
     loadProgress() {
         if (!this.planId) return;
         this.loading = true;
-        this.http.get(`http://localhost:8000/api/get_stats.php?plan_id=${this.planId}`)
+        this.http.get(`${environment.apiUrl}/get_stats.php?plan_id=${this.planId}`)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {
@@ -47,7 +48,7 @@ export class PlanEditorProgressComponent implements OnChanges {
     updateProgress(day: any) {
         if (!this.planId) return;
 
-        this.http.post('http://localhost:8000/api/add_progress.php', {
+        this.http.post(`${environment.apiUrl}/add_progress.php`, {
             plan_id: this.planId,
             date: day.date,
             count: day.logged
