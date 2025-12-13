@@ -17,7 +17,7 @@
    
 2. **Create New Project**:
    - Click "Deploy from GitHub repo"
-   - Select `ankitverma3490/word-tracker`
+   - Select `amanjeetsingh348-creator/word-tracker`
    - Click "Deploy Now"
 
 3. **Add MySQL Database**:
@@ -27,7 +27,7 @@
 
 4. **Configure Backend Service**:
    - Click "+ New" → "GitHub Repo"
-   - Select `ankitverma3490/word-tracker` again
+   - Select `amanjeetsingh348-creator/word-tracker` again
    - **IMPORTANT**: Set Root Directory to `backend-php`
    - Click "Deploy"
 
@@ -54,7 +54,7 @@
    
 2. **Import Repository**:
    - Click "Import Git Repository"
-   - Select `ankitverma3490/word-tracker`
+   - Select `amanjeetsingh348-creator/word-tracker`
    - Click "Import"
 
 3. **Configure Project**:
@@ -88,7 +88,7 @@
 
 1. **Create Frontend Service**:
    - In Railway project, click "+ New" → "GitHub Repo"
-   - Select `ankitverma3490/word-tracker` again
+   - Select `amanjeetsingh348-creator/word-tracker` again
    - **Root Directory**: Leave EMPTY (root)
    - Add environment variable: `NODE_VERSION` = `18`
 

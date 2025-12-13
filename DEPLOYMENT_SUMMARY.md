@@ -239,7 +239,7 @@ After deployment, test:
 
 ## 🔗 Important Links
 
-- **GitHub Repository**: https://github.com/ankitverma3490/word-tracker
+- **GitHub Repository**: https://github.com/amanjeetsingh348-creator/word-tracker
 - **Railway Dashboard**: https://railway.app/dashboard
 - **Vercel Dashboard**: https://vercel.com/dashboard
 - **Deployment Guide**: See `RAILWAY_DEPLOYMENT.md`

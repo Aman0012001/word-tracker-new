@@ -22,7 +22,7 @@ if ($remotes -notcontains "origin") {
     Write-Host ""
     Write-Host "⚠️  No git remote found!" -ForegroundColor Red
     Write-Host "Please add your GitHub repository:" -ForegroundColor Yellow
-    Write-Host "git remote add origin https://github.com/ankitverma3490/word-tracker.git" -ForegroundColor White
+    Write-Host "git remote add origin https://github.com/amanjeetsingh348-creator/word-tracker.git" -ForegroundColor White
     Write-Host ""
     Read-Host "Press Enter to continue after adding remote"
 }

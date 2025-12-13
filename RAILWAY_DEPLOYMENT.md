@@ -17,7 +17,7 @@ git commit -m "Prepare for Railway deployment"
 
 2. Add your GitHub repository:
 ```bash
-git remote add origin https://github.com/ankitverma3490/word-tracker.git
+git remote add origin https://github.com/amanjeetsingh348-creator/word-tracker.git
 git branch -M main
 git push -u origin main
 ```

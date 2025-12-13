@@ -20,7 +20,7 @@ if ! git remote | grep -q "origin"; then
     echo ""
     echo "⚠️  No git remote found!"
     echo "Please add your GitHub repository:"
-    echo "git remote add origin https://github.com/ankitverma3490/word-tracker.git"
+    echo "git remote add origin https://github.com/amanjeetsingh348-creator/word-tracker.git"
     echo ""
     read -p "Press Enter to continue after adding remote..."
 fi
