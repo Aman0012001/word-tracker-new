@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__ . '/../config.php';
 
+// Fix CORS
+require_once __DIR__ . '/../config/cors.php';
+handleCors();
+
 // Instantiate DB & Connect
 $database = new Database();
 $conn = $database->getConnection();

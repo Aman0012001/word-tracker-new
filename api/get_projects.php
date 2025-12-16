@@ -1,15 +1,15 @@
 <?php
 // backend-php/api/get_projects.php
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 require_once __DIR__ . '/../config.php';
+
+// Fix CORS
+require_once __DIR__ . '/../config/cors.php';
+handleCors();
 
 try {
     $database = new Database();
@@ -30,19 +30,19 @@ try {
     $offset = ($page - 1) * $limit;
 
     // Base query wrapper for counting
-    // We need to count the total results of the UNION
+// We need to count the total results of the UNION
     $countQuery = "
-        SELECT COUNT(*) as total FROM (
-            SELECT p.id
-            FROM projects p 
-            WHERE p.user_id = :uid
-            UNION
-            SELECT p.id
-            FROM projects p 
-            JOIN project_shares ps ON p.id = ps.project_id 
-            WHERE ps.user_id = :uid2
-        ) as combined_table
-    ";
+SELECT COUNT(*) as total FROM (
+SELECT p.id
+FROM projects p
+WHERE p.user_id = :uid
+UNION
+SELECT p.id
+FROM projects p
+JOIN project_shares ps ON p.id = ps.project_id
+WHERE ps.user_id = :uid2
+) as combined_table
+";
 
     $stmtCount = $conn->prepare($countQuery);
     $stmtCount->bindParam(':uid', $user_id);
@@ -53,17 +53,17 @@ try {
 
     // Main query with Limit
     $query = "
-        SELECT p.*, 'owner' as role 
-        FROM projects p 
-        WHERE p.user_id = :uid
-        UNION
-        SELECT p.*, ps.permission_level as role 
-        FROM projects p 
-        JOIN project_shares ps ON p.id = ps.project_id 
-        WHERE ps.user_id = :uid2
-        ORDER BY created_at DESC
-        LIMIT :limit OFFSET :offset
-    ";
+SELECT p.*, 'owner' as role
+FROM projects p
+WHERE p.user_id = :uid
+UNION
+SELECT p.*, ps.permission_level as role
+FROM projects p
+JOIN project_shares ps ON p.id = ps.project_id
+WHERE ps.user_id = :uid2
+ORDER BY created_at DESC
+LIMIT :limit OFFSET :offset
+";
 
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':uid', $user_id);

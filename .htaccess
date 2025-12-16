@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Handle Authorization Header (Fix for JWT)
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
 # Handle CORS Preflight
 RewriteCond %{REQUEST_METHOD} OPTIONS
 RewriteRule ^(.*)$ index.php [L]

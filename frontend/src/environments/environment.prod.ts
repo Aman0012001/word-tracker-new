@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://word-tracker-production.up.railway.app'
+    apiUrl: 'https://darkseagreen-alligator-228196.hostingersite.com/api'
 };
