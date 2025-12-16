@@ -1,8 +1,0 @@
-frontend/
-node_modules/
-.git/
-*.md
-fix-frontend-urls.ps1
-start_dev.ps1
-database/
-word-tracker-main/
