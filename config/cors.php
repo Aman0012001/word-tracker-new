@@ -10,7 +10,8 @@ function handleCors()
             'http://localhost:4200',
             'http://localhost',
             'https://darkseagreen-alligator-228196.hostingersite.com',
-            'https://darkseagreen-alligator-228196.hostingersite.com/', // With trailing slash
+            'https://darkseagreen-alligator-228196.hostingersite.com/',
+            'http://darkseagreen-alligator-228196.hostingersite.com', // Allow HTTP just in case
             'https://healthcheck.railway.app' // Allow Railway Healthchecks
         ];
 
