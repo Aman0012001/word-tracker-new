@@ -1,5 +1,6 @@
 [start]
-cmd = "php -S 0.0.0.0:$PORT index.php"
+# cmd = "php -S 0.0.0.0:$PORT index.php" 
+# Commented out to let Nixpacks use default Nginx/Apache which is production ready
 
 [phases.install]
 cmds = [

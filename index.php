@@ -32,6 +32,7 @@ $apiFile = __DIR__ . '/api/' . $filename;
 
 if (file_exists($apiFile)) {
     require $apiFile;
+    exit();
 } else {
     // Check if it's a known mapping
     http_response_code(404);
