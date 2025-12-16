@@ -10,7 +10,8 @@ function handleCors()
             'http://localhost:4200',
             'http://localhost',
             'https://darkseagreen-alligator-228196.hostingersite.com',
-            'https://darkseagreen-alligator-228196.hostingersite.com/' // With trailing slash
+            'https://darkseagreen-alligator-228196.hostingersite.com/', // With trailing slash
+            'https://healthcheck.railway.app' // Allow Railway Healthchecks
         ];
 
         if (in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins)) {
